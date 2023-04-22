@@ -23,9 +23,10 @@ while tries > 0:
     print(f'Player: {name} - Intentos restantes: {tries}')
     number_picked = int(input('Ingrese un número del 1 al 100: '))
     tries -= 1
-    if number_picked < 1 or number_picked > 100:
+    if number_picked not in range(1, 101):
         print(
-            f'El número {number_picked} tiene que ser en el rango de 1 y 100, has perdido 1 intento!')
+            f'El número {number_picked} no está en el rango de 1 y 100, has perdido 1 intento!')
+        continue
     if number_picked > number_random:
         print(
             f'Respuesta incorrecta, el número secreto es menor a {number_picked}')
