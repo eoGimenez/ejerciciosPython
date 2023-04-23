@@ -30,19 +30,24 @@ def start_game(word=word_picked, lifes=lifes):
     print(
         f'\nBinevenido al juego, la palbra a descubrir tiene {len(word)} caracteres\n {" ".join(secret_word)}')
     picked_chars = []
+    founded_chars = []
     while lifes > 0:
         print(f'\nIntentos restantes: {lifes}\n')
         char = new_character()
-        if char in word:
+        if char in word and char not in founded_chars:
             for index, character in enumerate(word):
                 if char == character:
                     secret_word[index] = char
+                    founded_chars.append(char)
                 else:
                     pass
+        elif char in founded_chars:
+            print(
+                f'La letra "{char}" ya la has elegido previamente, elige otra!')
         else:
             lifes -= 1
             picked_chars.append(char)
-        print(f'Letras ya elegidas: {"-".join(picked_chars)}\n')
+        print(f'Letras incorrectas ya elegidas: {"-".join(picked_chars)}\n')
         if is_won(secret_word) is True:
             break
         print(" ".join(secret_word))
