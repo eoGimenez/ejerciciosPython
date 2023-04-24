@@ -47,7 +47,8 @@ class Cliente(Persona):
         self.credit += cash
 
     def withdraw(self, cash):
-        self.credit -= cash
+        if self.credit >= cash:
+            self.credit -= cash
 
 
 def register():
@@ -62,7 +63,7 @@ def register():
 
 def atm_start():
     clear()
-    print("Binevenido a uno de nuestros más avanzados cajeros automáticos (?)\n")
+    print("Binevenido al ATM Python(?)\n")
     new_client = register()
     while True:
         clear()
