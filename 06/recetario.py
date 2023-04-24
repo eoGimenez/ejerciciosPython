@@ -44,9 +44,9 @@ Actualmente cuentas con {counter} recetas""")
 def select_category():
     categories = []
     print('La nueva lista de categorias:')
-    for index, category in enumerate(route_home.glob("*")):
-        categories.append(category.relative_to(route_home))
-        print(f"[{index+1}] - {category.relative_to(route_home)}")
+    for index, category in enumerate(route_home.iterdir()):
+        categories.append(category.name)
+        print(f"[{index+1}] - {category.name}")
     choice = int(input("Seleccione el numero de la categoria: "))
     return categories[choice-1]
 
@@ -55,8 +55,8 @@ def read_recipe(category):
     category_route = Path(route_home, category)
     recipies = []
     for index, txt in enumerate(category_route.glob("*.txt")):
-        recipies.append(txt.relative_to(category_route))
-        print(f"[{index+1}] - {txt.relative_to(category_route)}")
+        recipies.append(txt.name)
+        print(f"[{index+1}] - {txt.name}")
     choice = int(input("Elija el número que corresponda a la receta a leer: "))
     to_read = Path(category_route, recipies[choice-1]).read_text("utf-8")
     clear()
@@ -67,7 +67,16 @@ def read_recipe(category):
 
 def write_recipe(category):
     category_route = Path(route_home, category)
-    title_recipe = input('Ingrese el Titulo de la receta: ')
+    clear()
+    name_used = True
+    title_recipe = input('Ingrese el Titulo de la receta: ') + ".txt"
+    new_recipe = Path(category_route, title_recipe)
+    while name_used:
+        if os.path.exists(new_recipe):
+            title_recipe = input(
+                "Esa receta ya Existe, por favor elija otro nombre: ") + ".txt"
+        else:
+            name_used = False
     body_recipe = ""
     while True:
         clear()
@@ -76,7 +85,7 @@ def write_recipe(category):
         if new_line == "salir":
             clear()
             Path(
-                f"{category_route}/{title_recipe}.txt").write_text(body_recipe, "utf-8")
+                category_route, title_recipe).write_text(body_recipe, "utf-8")
             print(f'La receta: "{title_recipe}" ha sido creada correctamente!')
             break
         body_recipe += f"\n{new_line}"
@@ -88,7 +97,8 @@ def create_category():
     Path(route_home, new_category_name).mkdir()
     print('La nueva lista de categorias:')
     for category in route_home.glob("*"):
-        print(f"{category.relative_to(route_home)}")
+        print(f"{category.name}")
+    input('Presione ENTER para volver al menu principal')
 
 
 def delete_recipe(category):
@@ -134,8 +144,8 @@ def delete_category(category):
 
 
 def start_program():
-    welcome()
     while True:
+        welcome()
         print("""
         [1] - Leer una receta
         [2] - Crear una receta
@@ -146,6 +156,9 @@ def start_program():
         """)
         option = input("Elija una opción: ")
         clear()
+        if not option.isnumeric() or int(option) not in range(1, 7):
+            clear()
+            print("\tPOR FAVOR\n\tIngrese un NÚMERO del 1 al 6")
         if option == "6":
             clear()
             break
