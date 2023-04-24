@@ -19,7 +19,6 @@ a eliminar
 """
 
 import os
-from io import open
 from pathlib import Path
 
 
@@ -32,6 +31,7 @@ route_home = Path(
 
 
 def welcome():
+    clear()
     counter = 0
     for txt in Path(route_home).glob("**/*.txt"):
         counter += 1
