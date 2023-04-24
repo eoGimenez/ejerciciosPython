@@ -70,8 +70,8 @@ def write_recipe(category):
     clear()
     name_used = True
     title_recipe = input('Ingrese el Titulo de la receta: ') + ".txt"
-    new_recipe = Path(category_route, title_recipe)
     while name_used:
+        new_recipe = Path(category_route, title_recipe)
         if os.path.exists(new_recipe):
             title_recipe = input(
                 "Esa receta ya Existe, por favor elija otro nombre: ") + ".txt"
@@ -93,12 +93,20 @@ def write_recipe(category):
 
 def create_category():
     clear()
+    category_used = True
     new_category_name = input("Ingrese el nombre de la nueva Categoria: ")
-    Path(route_home, new_category_name).mkdir()
-    print('La nueva lista de categorias:')
-    for category in route_home.glob("*"):
-        print(f"{category.name}")
-    input('Presione ENTER para volver al menu principal')
+    while category_used:
+        new_category_path = Path(route_home, new_category_name)
+        if os.path.exists(new_category_path):
+            new_category_name = input(
+                "Esa categoria ya existe, por favor elija otro nombre: ")
+        else:
+            new_category_path.mkdir()  # tambnien se podria escribit Path.mkdir(new_category_path)
+            print('La nueva lista de categorias:')
+            for category in route_home.glob("*"):
+                print(f"{category.name}")
+            input('Presione ENTER para volver al menu principal')
+            category_used = False
 
 
 def delete_recipe(category):
