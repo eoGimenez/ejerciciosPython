@@ -26,8 +26,7 @@ def clear():
     os.system('clear')
 
 
-route_home = Path(
-    "/Users/Eu/Documents/Eu/Visual-Studio/EjerciciosPython/06/recetas")
+route_home = Path(Path.home(), "recetas")
 
 
 def welcome():
