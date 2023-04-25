@@ -20,6 +20,8 @@ today = date.today()
 ruta = Path(
     "/Users/Eu/Documents/Eu/Visual-Studio/EjerciciosPython/09/Mi_Gran_Directorio")
 
+start = time.time()
+
 
 def serial_number_search(ruta):
     dictionary = {}
@@ -35,17 +37,20 @@ def serial_number_search(ruta):
     return dictionary
 
 
-start = time.time()
-dictionary_result = serial_number_search(ruta)
-end = time.time()
-result = end - start
+def print_table():
+    clear()
+    print("-"*40)
+    print(f"Fecha de busqueda:\t{today.strftime('%d/%m/%Y')}\n")
+    print("ARCHIVOS\t\tNRO.SERIE")
+    print("-----------\t\t----------")
+    for key, value in dictionary_result.items():
+        print(f'{key}\t\t{value}')
+    print(f'Numero encontrados: {len(dictionary_result)}')
+    end = time.time()
+    result = end - start
+    print(f'Duración de la búsqueda: {math.ceil(result)}')
+    print("-"*40)
 
-clear()
-print("-"*40)
-print(f"Fecha de busqueda:\t{today.strftime('%d/%m/%Y')}\n")
-print("ARCHIVOS\t\tNRO.SERIE")
-print("-----------\t\t----------")
-for key, value in dictionary_result.items():
-    print(f'{key}\t\t{value}')
-print(f'Numero encontrados: {len(dictionary_result)}')
-print(f'Duración de la búsqueda: {math.ceil(result)}')
+
+dictionary_result = serial_number_search(ruta)
+print_table()
