@@ -1,3 +1,9 @@
+import os
+
+def clear():
+    return os.system('clear')
+
+
 def ticket_perfumeria():
     p = 0
     while p >= 0:
@@ -28,10 +34,11 @@ cosmetica = ticket_cosmetica()
 
 
 def decoration(function):
-    print(function)
+    clear()
 
     def to_decorate():
         print("Su turno es:")
         print(next(function))
         print("Aguarde y\nserá atendide")
+        input("Precione ENTER para sacar otro turno")
     return to_decorate

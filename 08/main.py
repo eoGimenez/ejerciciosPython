@@ -30,20 +30,22 @@ def turn_on():
             [2] - Farmacia
             [3] - Cosmética
             """)
-        option = input("Ingrese el número para el area deseada: ")
-        if not option.isnumeric() or int(option) not in range(1, 4):
+        try:
+            option = input("Ingrese el número para el area deseada: ")
+            ["1", "2", "3"].index(option)
+            if option == "1":
+                ticket = generator.decoration(generator.perfumeria)
+                ticket()
+            if option == "2":
+                ticket = generator.decoration(generator.farmacia)
+                ticket()
+            if option == "3":
+                ticket = generator.decoration(generator.cosmetica)
+                ticket()
+        except Exception as e:
             clear()
-            print("\tPOR FAVOR\n\tIngrese un NÚMERO del 1 al 3")
-            input("Precione ENTER para continuar")
-        if option == "1":
-            ticket = generator.decoration(generator.perfumeria)
-            ticket()
-        if option == "2":
-            ticket = generator.decoration(generator.farmacia)
-            ticket()
-        if option == "3":
-            ticket = generator.decoration(generator.cosmetica)
-            ticket()
+            print("Por favor ingrese una opción valida !", e)
+            input("Precione ENTER para volver al menu inicio")
 
 
 turn_on()
