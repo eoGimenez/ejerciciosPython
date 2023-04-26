@@ -12,6 +12,8 @@ Para lograrlo vas a usar el módulo os para abrir e iterear por el directorio, y
 
 A los fines de este ejercicio, estas son las condiciones de formato que deben cumplir los hallazgos:
 - [N] + [tres carateres de texto] + [-] + [5 números]
+^N\D{3}-\d{5}
+
 
 Por ejemplo: Nryu-12365
 
